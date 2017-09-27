@@ -28,7 +28,6 @@ class BTMenuCell: UITableViewCell {
 
                 self.selectionLabel.isHidden = true
                 self.selectionLabel.backgroundColor = configuration.cellSelectionColor
-                
 
             }
         }
@@ -40,8 +39,4 @@ class BTMenuCell: UITableViewCell {
         countLabel.layer.cornerRadius = 12.0
     }
 
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: true)
-//        self.selectionLabel.isHidden = !selected
-//    }
 }

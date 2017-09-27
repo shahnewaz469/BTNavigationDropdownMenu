@@ -51,7 +51,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         self.dataSource = self
         self.backgroundColor = UIColor.clear
         self.separatorStyle = UITableViewCellSeparatorStyle.none
-        //        self.separatorEffect = UIBlurEffect(style: .Light)
+        self.separatorEffect = UIBlurEffect(style: .light)
         self.autoresizingMask = UIViewAutoresizing.flexibleWidth
         self.tableFooterView = UIView(frame: CGRect.zero)
         
@@ -61,14 +61,6 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 //        self.separatorInset = UIEdgeInsets.zero
     }
     
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//        if let hitView = super.hitTest(point, with: event) , hitView.isKind(of: BTTableCellContentView.self) {
-//            return hitView
-//        }
-//        return nil;
-//    }
-    
-    // Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -85,10 +77,6 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = BTTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell", configuration: self.configuration)
-//        cell.textLabel?.text = self.items[(indexPath as NSIndexPath).row]
-//        cell.checkmarkIcon.isHidden = ((indexPath as NSIndexPath).row == selectedIndexPath) ? false : true
-        
         let cell = self.dequeueReusableCell(withIdentifier: "BTMenuCell", for: indexPath) as! BTMenuCell
         cell.configuration = self.configuration
         cell.titleLabel?.text = self.items[indexPath.row]
@@ -114,23 +102,6 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         selectedIndexPath = indexPath.row
         self.selectRowAtIndexPathHandler!(indexPath.row)
         self.reloadData()
-//        let cell = tableView.cellForRow(at: indexPath) as? BTMenuCell
-//        cell?.contentView.backgroundColor = self.configuration.cellSelectionColor
 
     }
-    
-//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath) as? BTMenuCell
-//        cell?.selectionLabel.isHidden = true
-//        cell?.countLabel.backgroundColor = UIColor.lightGray
-//        
-//        cell?.contentView.backgroundColor = self.configuration.cellBackgroundColor
-//    }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if self.configuration.shouldKeepSelectedCellColor == true {
-//            cell.backgroundColor = self.configuration.cellBackgroundColor
-//            cell.contentView.backgroundColor = ((indexPath as NSIndexPath).row == selectedIndexPath) ? self.configuration.cellSelectionColor : self.configuration.cellBackgroundColor
-//        }
-//    }
 }
