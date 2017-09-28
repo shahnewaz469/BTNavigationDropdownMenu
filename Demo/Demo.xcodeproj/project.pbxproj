@@ -18,7 +18,6 @@
 		2E44D6AF1B4C326300C9C49E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6AD1B4C326300C9C49E /* Main.storyboard */; };
 		2E44D6B11B4C326300C9C49E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6B01B4C326300C9C49E /* Images.xcassets */; };
 		2E44D6B41B4C326300C9C49E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6B21B4C326300C9C49E /* LaunchScreen.xib */; };
-		DE4E6CAC1F7D088500BBAD1E /* BTMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4E6CAB1F7D088500BBAD1E /* BTMenuItem.swift */; };
 		DE5648DD1F7BAB9300D51429 /* BTMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5648DB1F7BAB9300D51429 /* BTMenuCell.swift */; };
 		DE5648DE1F7BAB9300D51429 /* BTMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE5648DC1F7BAB9300D51429 /* BTMenuCell.xib */; };
 /* End PBXBuildFile section */
@@ -49,7 +48,6 @@
 		2E44D6B31B4C326300C9C49E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2E44D6B91B4C326300C9C49E /* DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E44D6BE1B4C326300C9C49E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DE4E6CAB1F7D088500BBAD1E /* BTMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTMenuItem.swift; sourceTree = "<group>"; };
 		DE5648DB1F7BAB9300D51429 /* BTMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTMenuCell.swift; sourceTree = "<group>"; };
 		DE5648DC1F7BAB9300D51429 /* BTMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BTMenuCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,7 +75,6 @@
 			children = (
 				0B11A62C1F0C12F500CB4A0B /* BTNavigationDropdownMenu.bundle */,
 				0B11A62D1F0C12F500CB4A0B /* BTNavigationDropdownMenu.swift */,
-				DE4E6CAB1F7D088500BBAD1E /* BTMenuItem.swift */,
 				0B11A62F1F0C12F500CB4A0B /* Extension */,
 				0B11A6311F0C12F500CB4A0B /* Internal */,
 			);
@@ -293,7 +290,6 @@
 				DE5648DD1F7BAB9300D51429 /* BTMenuCell.swift in Sources */,
 				0B11A63F1F0C131A00CB4A0B /* UIView+Extension.swift in Sources */,
 				0B11A63C1F0C12F500CB4A0B /* BTTableView.swift in Sources */,
-				DE4E6CAC1F7D088500BBAD1E /* BTMenuItem.swift in Sources */,
 				2E44D6AA1B4C326300C9C49E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

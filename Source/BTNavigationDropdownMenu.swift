@@ -26,6 +26,18 @@
 
 import UIKit
 
+public struct BTMenuItem {
+    
+    var value: Int
+    var title: String
+    
+    public init(title: String, value: Int) {
+        self.title = title
+        self.value = value
+    }
+    
+}
+
 // MARK: BTNavigationDropdownMenu
 open class BTNavigationDropdownMenu: UIView {
 
