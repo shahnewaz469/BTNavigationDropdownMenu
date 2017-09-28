@@ -6,9 +6,9 @@
 //  Copyright © 2017 PHAM BA THO. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-public struct BTMenuItem {
+open class BTMenuItem: NSObject {
     
     var value: Int
     var title: String
