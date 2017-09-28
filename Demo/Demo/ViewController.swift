@@ -15,15 +15,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let items = ["Most Popular", "Latest", "Trending", "Nearest", "Top Picks"]
-        let counts = ["10", "21", "32", "43", "54"]
+        let items = ["Most Popular", "Latest", "Trending", "Nearest", "Top Picks", "Nearest", "Top Picks"]
 
+        var menus = [BTMenuItem]()
+        for title in items {
+            menus.append(BTMenuItem(title: title, value: Int(arc4random()%100)))
+        }
         self.selectedCellLabel.text = items.first
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.0/255.0, green:180/255.0, blue:220/255.0, alpha: 1.0)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 
-        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, index: 2, items: items, counts: counts)
+        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, index: 2, items: menus)
 
         /*
         menuView.cellHeight = 50

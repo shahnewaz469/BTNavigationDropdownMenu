@@ -26,6 +26,18 @@
 
 import UIKit
 
+public struct BTMenuItem {
+    
+    var value: Int
+    var title: String
+    
+    init(title: String, value: Int) {
+        self.title = title
+        self.value = value
+    }
+    
+}
+
 // MARK: BTNavigationDropdownMenu
 open class BTNavigationDropdownMenu: UIView {
 
@@ -231,8 +243,7 @@ open class BTNavigationDropdownMenu: UIView {
     fileprivate var menuArrow: UIImageView!
     fileprivate var backgroundView: UIView!
     fileprivate var tableView: BTTableView!
-    fileprivate var items: [String]!
-    fileprivate var counts: [String]!
+    fileprivate var items: [BTMenuItem]!
     fileprivate var menuWrapper: UIView!
 
     required public init?(coder aDecoder: NSCoder) {
@@ -266,7 +277,7 @@ open class BTNavigationDropdownMenu: UIView {
         - title: An enum to define title to be displayed, can be a string or index of items.
         - items: The array of items to select
      */
-    public init(navigationController: UINavigationController? = nil, containerView: UIView = UIApplication.shared.keyWindow!, index: Int, items: [String], counts: [String]) {
+    public init(navigationController: UINavigationController? = nil, containerView: UIView = UIApplication.shared.keyWindow!, index: Int, items: [BTMenuItem]) {
         // Key window
         guard let window = UIApplication.shared.keyWindow else {
             super.init(frame: CGRect.zero)
@@ -286,8 +297,8 @@ open class BTNavigationDropdownMenu: UIView {
 
 //        switch title{
 //        case .index(let index):
-            if index < items.count{
-                titleToDisplay = items[index] + " (" + counts[index] + ")"
+            if index < items.count {
+                titleToDisplay = items[index].title + " (\(items[index].value))"
             } else {
                 titleToDisplay = ""
             }
@@ -304,7 +315,6 @@ open class BTNavigationDropdownMenu: UIView {
 
         self.isShown = false
         self.items = items
-        self.counts = counts
         
         // Init button as navigation title
         self.menuButton = UIButton(frame: frame)
@@ -341,17 +351,17 @@ open class BTNavigationDropdownMenu: UIView {
         self.setupDefaultConfiguration()
 
         // Init table view
-        let navBarHeight = self.navigationController?.navigationBar.bounds.size.height ?? 0
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: menuWrapperBounds.height + 300 - navBarHeight - statusBarHeight), items: items, counts: counts, title: titleToDisplay, configuration: self.configuration)
-        self.tableView.selectedIndexPath = index
+//        let navBarHeight = self.navigationController?.navigationBar.bounds.size.height ?? 0
+//        print("\(CGFloat(items.count) * self.configuration.cellHeight)")
+//        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: (CGFloat(items.count) * self.configuration.cellHeight) + 300.0), items: items, selectedIndex: index, configuration: self.configuration)
         self.tableView.selectRowAtIndexPathHandler = { [weak self] (indexPath: Int) -> () in
             guard let selfie = self else {
                 return
             }
             selfie.didSelectItemAtIndexHandler!(indexPath)
             if selfie.shouldChangeTitleText! {
-                selfie.setMenuTitle("\(selfie.tableView.items[indexPath])" + " (" + selfie.tableView.counts[index] + ")")
+                selfie.setMenuTitle(selfie.tableView.items[indexPath].title + " (\(selfie.tableView.items[indexPath].value))")
             }
             self?.hideMenu()
             self?.layoutSubviews()
@@ -408,7 +418,7 @@ open class BTNavigationDropdownMenu: UIView {
         }
     }
 
-    open func updateItems(_ items: [String]) {
+    open func updateItems(_ items: [BTMenuItem]) {
         if !items.isEmpty {
             self.tableView.items = items
             self.tableView.reloadData()

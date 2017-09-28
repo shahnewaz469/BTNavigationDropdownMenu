@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWN-9k-gkw">
-                        <rect key="frame" x="0.0" y="2" width="5" height="39.5"/>
+                        <rect key="frame" x="0.0" y="4" width="5" height="35.5"/>
                         <color key="backgroundColor" red="1" green="0.45862848898884012" blue="0.4202951374716748" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="5" id="VOb-dv-RqN"/>
@@ -49,8 +49,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="4qO-E2-kPr" firstAttribute="centerY" secondItem="kH9-Wl-cvD" secondAttribute="centerY" id="3ut-4S-txA"/>
-                    <constraint firstAttribute="bottom" secondItem="PWN-9k-gkw" secondAttribute="bottom" constant="2" id="Cqi-Zv-Nk2"/>
-                    <constraint firstItem="PWN-9k-gkw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="WlN-JN-Gyj"/>
+                    <constraint firstAttribute="bottom" secondItem="PWN-9k-gkw" secondAttribute="bottom" constant="4" id="Cqi-Zv-Nk2"/>
+                    <constraint firstItem="PWN-9k-gkw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="WlN-JN-Gyj"/>
                     <constraint firstItem="PWN-9k-gkw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="YxJ-b3-OJF"/>
                     <constraint firstItem="kH9-Wl-cvD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fH9-GI-v70"/>
                     <constraint firstAttribute="trailing" secondItem="4qO-E2-kPr" secondAttribute="trailing" constant="10" id="pF7-ok-G48"/>

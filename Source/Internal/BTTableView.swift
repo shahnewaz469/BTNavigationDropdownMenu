@@ -30,20 +30,18 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     var selectRowAtIndexPathHandler: ((_ indexPath: Int) -> ())?
     
     // Private properties
-    var items: [String] = []
-    var counts: [String] = []
+    var items: [BTMenuItem] = []
     var selectedIndexPath: Int?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, items: [String], counts: [String], title: String, configuration: BTConfiguration) {
+    init(frame: CGRect, items: [BTMenuItem], selectedIndex: Int, configuration: BTConfiguration) {
         super.init(frame: frame, style: UITableViewStyle.plain)
         
         self.items = items
-        self.counts = counts
-        self.selectedIndexPath = items.index(of: title)
+        self.selectedIndexPath = selectedIndex
         self.configuration = configuration
         
         // Setup table view
@@ -79,8 +77,8 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.dequeueReusableCell(withIdentifier: "BTMenuCell", for: indexPath) as! BTMenuCell
         cell.configuration = self.configuration
-        cell.titleLabel?.text = self.items[indexPath.row]
-        cell.countLabel?.text = self.counts[indexPath.row]
+        cell.titleLabel?.text = self.items[indexPath.row].title
+        cell.countLabel?.text = "\(self.items[indexPath.row].value)"
         if indexPath.row == selectedIndexPath {
             cell.selectionLabel.isHidden = false
             cell.countLabel.backgroundColor = self.configuration.cellSelectionColor
