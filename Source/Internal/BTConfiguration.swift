@@ -43,8 +43,6 @@ final class BTConfiguration {
     var maskBackgroundColor: UIColor!
     var maskBackgroundOpacity: CGFloat!
     var shouldChangeTitleText: Bool!
-    var shouldScrollEnabled: Bool!
-    var shouldShowSeperator: Bool!
 
     init() {
         self.defaultValue()
@@ -78,7 +76,5 @@ final class BTConfiguration {
         self.maskBackgroundColor = UIColor.black
         self.maskBackgroundOpacity = 0.3
         self.shouldChangeTitleText = true
-        self.shouldScrollEnabled = true
-        self.shouldShowSeperator = true
     }
 }

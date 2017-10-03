@@ -48,15 +48,11 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         self.delegate = self
         self.dataSource = self
         self.backgroundColor = UIColor.clear
-        if configuration.shouldShowSeperator {
-            self.separatorStyle = .singleLine
-        } else {
-            self.separatorStyle = .none
-        }
+        self.separatorStyle = .none
         self.separatorEffect = UIBlurEffect(style: .light)
         self.autoresizingMask = UIViewAutoresizing.flexibleWidth
         self.tableFooterView = UIView(frame: CGRect.zero)
-        self.isScrollEnabled = configuration.shouldScrollEnabled
+        self.isScrollEnabled = false
         self.separatorColor = configuration.cellSeparatorColor
         self.separatorInset = UIEdgeInsets.zero
     }

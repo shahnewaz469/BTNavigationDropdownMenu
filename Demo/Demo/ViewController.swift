@@ -19,7 +19,7 @@ class ViewController: UIViewController {
 
         var menus = [BTMenuItem]()
         for title in items {
-            menus.append(BTMenuItem(title: title, value: Int(arc4random()%100)))
+            menus.append(BTMenuItem(title: title, value: Int(arc4random()%200)))
         }
         self.selectedCellLabel.text = items.first
         self.navigationController?.navigationBar.isTranslucent = false
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         menuView.maskBackgroundColor = UIColor.black
         menuView.maskBackgroundOpacity = 0.3
         */
-        menuView.cellSeparatorColor = UIColor.red
+        menuView.cellSeparatorColor = UIColor.clear
         menuView.selectedCellTextLabelColor = UIColor.white
         menuView.animationDuration = 0.3
         menuView.cellTextLabelFont = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightLight)

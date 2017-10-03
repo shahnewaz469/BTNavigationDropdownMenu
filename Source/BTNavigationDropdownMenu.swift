@@ -252,21 +252,6 @@ open class BTNavigationDropdownMenu: UIView {
 
     /**
 
-     Legacy init converted as a convenience initializer to call the default init
-
-     - parameters:
-        - navigationController: The present and visible navigation controller.
-        - containerView: The container view. Default is keyWindow.
-        - title: A string to define title to be displayed.
-        - items: The array of items to select
-     */
-//    public convenience init(navigationController: UINavigationController? = nil, containerView: UIView = UIApplication.shared.keyWindow!, index: Int, items: [String], counts: [String]) {
-//
-//        self.init(navigationController: navigationController, containerView: containerView, index: index, items: items, counts: counts)
-//    }
-
-    /**
-
      Default init. This will allow the user to define a string or a index where the user can
      pre-define as a default selected. This is specially handy for when it's necessary to
      restore from a saved state
@@ -295,16 +280,11 @@ open class BTNavigationDropdownMenu: UIView {
         let titleSize: CGSize
         let titleToDisplay: String
 
-//        switch title{
-//        case .index(let index):
-            if index < items.count {
-                titleToDisplay = items[index].title + " (\(items[index].value))"
-            } else {
-                titleToDisplay = ""
-            }
-//        case .title(let title):
-//            titleToDisplay = title
-//        }
+        if index < items.count {
+            titleToDisplay = items[index].title + " (\(items[index].value))"
+        } else {
+            titleToDisplay = ""
+        }
 
         titleSize = (titleToDisplay as NSString).size(attributes: [NSFontAttributeName:self.configuration.navigationBarTitleFont])
 
@@ -351,9 +331,6 @@ open class BTNavigationDropdownMenu: UIView {
         self.setupDefaultConfiguration()
 
         // Init table view
-//        let navBarHeight = self.navigationController?.navigationBar.bounds.size.height ?? 0
-//        print("\(CGFloat(items.count) * self.configuration.cellHeight)")
-//        let statusBarHeight = UIApplication.shared.statusBarFrame.height
         self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: (CGFloat(items.count) * self.configuration.cellHeight) + 300.0), items: items, selectedIndex: index, configuration: self.configuration)
         self.tableView.selectRowAtIndexPathHandler = { [weak self] (indexPath: Int) -> () in
             guard let selfie = self else {
@@ -424,15 +401,6 @@ open class BTNavigationDropdownMenu: UIView {
             self.tableView.reloadData()
         }
     }
-
-//    open func setSelected(index: Int) {
-//        self.tableView.selectedIndexPath = index
-//        self.tableView.reloadData()
-//
-//        if self.shouldChangeTitleText! {
-//            self.setMenuTitle("\(self.tableView.items[index])")
-//        }
-//    }
 
     func setupDefaultConfiguration() {
         self.menuTitleColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
