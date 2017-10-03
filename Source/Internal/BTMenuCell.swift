@@ -9,22 +9,20 @@
 import UIKit
 
 class BTMenuCell: UITableViewCell {
-    
-    @IBOutlet weak var selectionLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var countLabel: UILabel!
-    
+
+    var selectionLabel: UILabel!
+    var countLabel: UILabel!
     var configuration: BTConfiguration? {
         didSet {
             if let configuration = configuration {
                 // Setup cell
                 self.backgroundColor = configuration.cellBackgroundColor
                 self.selectionStyle = UITableViewCellSelectionStyle.none
-                self.titleLabel!.textColor = configuration.cellTextLabelColor
-                self.titleLabel!.font = configuration.cellTextLabelFont
-                self.titleLabel!.textAlignment = configuration.cellTextLabelAlignment
+                self.textLabel?.textColor = configuration.cellTextLabelColor
+                self.textLabel?.font = configuration.cellTextLabelFont
+                self.textLabel?.textAlignment = configuration.cellTextLabelAlignment
                 
-                self.countLabel!.font = configuration.cellTextLabelFont
+                self.countLabel.font = configuration.cellTextLabelFont
 
                 self.selectionLabel.isHidden = true
                 self.selectionLabel.backgroundColor = configuration.cellSelectionColor
@@ -33,10 +31,33 @@ class BTMenuCell: UITableViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        countLabel.layer.masksToBounds = true
-        countLabel.layer.cornerRadius = 12.0
-    }
+    init(style: UITableViewCellStyle, reuseIdentifier: String?, configuration: BTConfiguration) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionLabel = UILabel()
+        self.selectionLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.selectionLabel)
+        let verticalConstraint = NSLayoutConstraint(item: self.selectionLabel, attribute: .centerY, relatedBy: NSLayoutRelation.equal, toItem: self.textLabel, attribute: .centerY, multiplier: 1, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: self.selectionLabel, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 4)
+        let heightConstraint = NSLayoutConstraint(item: self.selectionLabel, attribute: .height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 32)
+        
+        self.countLabel = UILabel()
+        self.countLabel.textAlignment = .center
+        self.countLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.countLabel)
+        self.countLabel.layer.masksToBounds = true
+        self.countLabel.layer.cornerRadius = 12.0
+        let verticalConstraint2 = NSLayoutConstraint(item: self.countLabel, attribute: .centerY, relatedBy: .equal, toItem: self.textLabel, attribute: .centerY, multiplier: 1, constant: 0)
+        let widthConstraint2 = NSLayoutConstraint(item: self.countLabel, attribute: .width, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 48)
+        let heightConstraint2 = NSLayoutConstraint(item: self.countLabel, attribute: .height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 26)
+        let trailingConstraint2 = NSLayoutConstraint(item: self.countLabel, attribute: .trailing, relatedBy: NSLayoutRelation.equal, toItem: self.contentView, attribute: .trailing, multiplier: 1, constant: -10)
 
+        NSLayoutConstraint.activate([verticalConstraint, verticalConstraint, widthConstraint, heightConstraint, verticalConstraint2, verticalConstraint2, widthConstraint2, heightConstraint2, trailingConstraint2])
+
+        self.configuration = configuration
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

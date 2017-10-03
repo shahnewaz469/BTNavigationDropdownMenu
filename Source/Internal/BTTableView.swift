@@ -48,15 +48,13 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         self.delegate = self
         self.dataSource = self
         self.backgroundColor = UIColor.clear
-        self.separatorStyle = UITableViewCellSeparatorStyle.none
+        self.separatorStyle = .singleLine
         self.separatorEffect = UIBlurEffect(style: .light)
         self.autoresizingMask = UIViewAutoresizing.flexibleWidth
         self.tableFooterView = UIView(frame: CGRect.zero)
-        
-        self.register(UINib(nibName: "BTMenuCell", bundle: nil), forCellReuseIdentifier: "BTMenuCell")
-        
+        self.isScrollEnabled = configuration.shouldScrollEnabled
         self.separatorColor = configuration.cellSeparatorColor
-//        self.separatorInset = UIEdgeInsets.zero
+        self.separatorInset = UIEdgeInsets.zero
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -75,20 +73,20 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.dequeueReusableCell(withIdentifier: "BTMenuCell", for: indexPath) as! BTMenuCell
+        let cell = BTMenuCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.configuration = self.configuration
-        cell.titleLabel?.text = self.items[indexPath.row].title
+        cell.textLabel?.text = self.items[indexPath.row].title
         cell.countLabel?.text = "\(self.items[indexPath.row].value)"
         if indexPath.row == selectedIndexPath {
             cell.selectionLabel.isHidden = false
             cell.countLabel.backgroundColor = self.configuration.cellSelectionColor
-            cell.titleLabel?.textColor = self.configuration.selectedCellTextLabelColor
+            cell.textLabel?.textColor = self.configuration.selectedCellTextLabelColor
             cell.countLabel?.textColor = self.configuration.selectedCellTextLabelColor
 
         } else {
             cell.selectionLabel.isHidden = true
             cell.countLabel.backgroundColor = UIColor.lightGray
-            cell.titleLabel?.textColor = self.configuration.cellTextLabelColor
+            cell.textLabel?.textColor = self.configuration.cellTextLabelColor
             cell.countLabel?.textColor = self.configuration.cellTextLabelColor
 
         }
@@ -102,4 +100,5 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         self.reloadData()
 
     }
+
 }
