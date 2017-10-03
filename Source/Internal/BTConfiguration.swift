@@ -58,7 +58,7 @@ final class BTConfiguration {
         
         // Default values
         self.menuTitleColor = UIColor.darkGray
-        self.cellHeight = 50
+        self.cellHeight = 44
         self.cellBackgroundColor = UIColor.white
         self.arrowTintColor = UIColor.white
         self.cellSeparatorColor = UIColor.darkGray
