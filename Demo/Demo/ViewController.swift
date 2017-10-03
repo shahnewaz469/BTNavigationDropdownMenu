@@ -21,6 +21,8 @@ class ViewController: UIViewController {
         for title in items {
             menus.append(BTMenuItem(title: title, value: Int(arc4random()%200)))
         }
+        menus.append(BTMenuItem(title: "title"))
+
         self.selectedCellLabel.text = items.first
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.0/255.0, green:180/255.0, blue:220/255.0, alpha: 1.0)
@@ -48,7 +50,7 @@ class ViewController: UIViewController {
         menuView.cellSelectionColor = UIColor.orange
         menuView.didSelectItemAtIndexHandler = {(indexPath: Int) -> Void in
             print("Did select item at index: \(indexPath)")
-            self.selectedCellLabel.text = items[indexPath]
+//            self.selectedCellLabel.text = items[indexPath]
         }
         
         self.navigationItem.titleView = menuView

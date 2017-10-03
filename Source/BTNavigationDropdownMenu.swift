@@ -28,10 +28,10 @@ import UIKit
 
 public struct BTMenuItem {
     
-    var value: Int
+    var value: Int?
     var title: String
     
-    public init(title: String, value: Int) {
+    public init(title: String, value: Int? = nil) {
         self.title = title
         self.value = value
     }
@@ -281,7 +281,11 @@ open class BTNavigationDropdownMenu: UIView {
         let titleToDisplay: String
 
         if index < items.count {
-            titleToDisplay = items[index].title + " (\(items[index].value))"
+            if let count = items[index].value {
+                titleToDisplay = items[index].title + " (\(count))"
+            } else {
+                titleToDisplay = items[index].title
+            }
         } else {
             titleToDisplay = ""
         }
@@ -338,7 +342,11 @@ open class BTNavigationDropdownMenu: UIView {
             }
             selfie.didSelectItemAtIndexHandler!(indexPath)
             if selfie.shouldChangeTitleText! {
-                selfie.setMenuTitle(selfie.tableView.items[indexPath].title + " (\(selfie.tableView.items[indexPath].value))")
+                if let count = selfie.tableView.items[indexPath].value {
+                    selfie.setMenuTitle(selfie.tableView.items[indexPath].title + " (\(count))")
+                } else {
+                    selfie.setMenuTitle(selfie.tableView.items[indexPath].title)
+                }
             }
             self?.hideMenu()
             self?.layoutSubviews()

@@ -76,7 +76,12 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         let cell = BTMenuCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.configuration = self.configuration
         cell.textLabel?.text = self.items[indexPath.row].title
-        cell.countLabel?.text = "\(self.items[indexPath.row].value)"
+        if let count = self.items[indexPath.row].value {
+            cell.countLabel?.text = "\(count)"
+            cell.countLabel.isHidden = false
+        } else {
+            cell.countLabel.isHidden = true
+        }
         if indexPath.row == selectedIndexPath {
             cell.selectionLabel.isHidden = false
             cell.countLabel.backgroundColor = self.configuration.cellSelectionColor
