@@ -403,9 +403,10 @@ open class BTNavigationDropdownMenu: UIView {
         }
     }
 
-    open func updateItems(_ items: [BTMenuItem]) {
+    open func updateItems(_ items: [BTMenuItem], selectedIndex: Int) {
         if !items.isEmpty {
             self.tableView.items = items
+            self.tableView.selectedIndexPath = selectedIndex
             self.tableView.reloadData()
         }
     }
