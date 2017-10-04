@@ -403,11 +403,18 @@ open class BTNavigationDropdownMenu: UIView {
         }
     }
 
-    open func updateItems(_ items: [BTMenuItem], selectedIndex: Int) {
+    open func updateItems(_ items: [BTMenuItem], title: String) {
         if !items.isEmpty {
-            self.tableView.items = items
-            self.tableView.selectedIndexPath = selectedIndex
-            self.tableView.reloadData()
+            if let selectedIndex = items.index(where: {$0.title == title}) {
+                if let count = items[selectedIndex].value {
+                    self.setMenuTitle(items[selectedIndex].title + " (\(count))")
+                } else {
+                    self.setMenuTitle(items[selectedIndex].title)
+                }
+                self.tableView.items = items
+                self.tableView.selectedIndexPath = selectedIndex
+                self.tableView.reloadData()
+            }
         }
     }
 
