@@ -26,7 +26,19 @@ import UIKit
 class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     // Public properties
-    var configuration: BTConfiguration!
+    var configuration: BTConfiguration! {
+        didSet {
+            if let value = configuration {
+                self.isScrollEnabled = value.isScrollEnabled
+                self.separatorColor = value.cellSeparatorColor
+                if value.shouldShowSeperator {
+                    self.separatorStyle = .singleLine
+                } else {
+                    self.separatorStyle = .none
+                }
+            }
+        }
+    }
     var selectRowAtIndexPathHandler: ((_ indexPath: Int) -> ())?
     var selectSegmentIndexPathHandler: ((_ index: Int) -> ())?
 
@@ -40,24 +52,19 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, items: [BTMenuItem], selectedIndex: Int, configuration: BTConfiguration, segments: [String]? = nil, selectedSegment: Int = 0) {
+    init(frame: CGRect, items: [BTMenuItem], selectedIndex: Int, segments: [String]? = nil, selectedSegment: Int = 0) {
         self.selectedSegment = selectedSegment
         super.init(frame: frame, style: UITableViewStyle.plain)
         self.items = items
         self.selectedIndexPath = selectedIndex
-        self.configuration = configuration
         self.segments = segments
         
         // Setup table view
         self.delegate = self
         self.dataSource = self
         self.backgroundColor = UIColor.clear
-        self.separatorStyle = .none
-        self.separatorEffect = UIBlurEffect(style: .light)
         self.autoresizingMask = UIViewAutoresizing.flexibleWidth
         self.tableFooterView = UIView(frame: CGRect.zero)
-        self.isScrollEnabled = false
-        self.separatorColor = configuration.cellSeparatorColor
         self.separatorInset = UIEdgeInsets.zero
     }
     

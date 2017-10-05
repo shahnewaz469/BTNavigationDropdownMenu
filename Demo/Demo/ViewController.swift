@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         menuView.maskBackgroundColor = UIColor.black
         menuView.maskBackgroundOpacity = 0.3
         */
-        menuView.cellSeparatorColor = UIColor.clear
+        menuView.shouldShowSeperator = true
         menuView.selectedCellTextLabelColor = UIColor.white
         menuView.animationDuration = 0.3
         menuView.cellTextLabelFont = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightLight)

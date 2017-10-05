@@ -51,6 +51,24 @@ open class BTNavigationDropdownMenu: UIView {
         }
     }
 
+    open var shouldShowSeperator: Bool! {
+        get {
+            return self.configuration.shouldShowSeperator
+        }
+        set(value) {
+            self.configuration.shouldShowSeperator = value
+        }
+    }
+
+    open var isScrollEnabled: Bool! {
+        get {
+            return self.configuration.isScrollEnabled
+        }
+        set(value) {
+            self.configuration.isScrollEnabled = value
+        }
+    }
+
     // The height of the cell. Default is 50
     open var cellHeight: NSNumber! {
         get {
@@ -336,7 +354,13 @@ open class BTNavigationDropdownMenu: UIView {
         self.setupDefaultConfiguration()
 
         // Init table view
-        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: (CGFloat(items.count) * self.configuration.cellHeight) + 300.0), items: items, selectedIndex: index, configuration: self.configuration, segments: segments)
+        var rowCount = CGFloat(items.count)
+        if segments != nil {
+            rowCount = CGFloat(items.count + 1)
+        }
+        
+        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: (rowCount * self.configuration.cellHeight) + 300.0), items: items, selectedIndex: index, segments: segments)
+        self.tableView.configuration = self.configuration
         self.tableView.selectSegmentIndexPathHandler = { [weak self] (index: Int) -> () in
             guard let selfie = self else {
                 return
@@ -432,7 +456,7 @@ open class BTNavigationDropdownMenu: UIView {
     func setupDefaultConfiguration() {
         self.menuTitleColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
         self.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
-        self.cellSeparatorColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
+//        self.cellSeparatorColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
         self.cellTextLabelColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
 
         self.arrowTintColor = self.configuration.arrowTintColor
