@@ -346,7 +346,8 @@ open class BTNavigationDropdownMenu: UIView {
         self.setupDefaultConfiguration()
 
         // Init table view
-        var maxHeight = menuWrapperBounds.height - self.navigationController!.navigationBar.frame.height - UIApplication.shared.statusBarFrame.height
+        let navBarHeight = self.navigationController?.navigationBar.bounds.size.height ?? 0
+        var maxHeight = menuWrapperBounds.height - navBarHeight - UIApplication.shared.statusBarFrame.height
         if let tabbar = self.navigationController?.tabBarController?.tabBar {
             maxHeight -= tabbar.frame.size.height
         }
@@ -354,10 +355,7 @@ open class BTNavigationDropdownMenu: UIView {
         if segments != nil {
             height = CGFloat(items.count + 1) * CGFloat(self.configuration.cellHeight)
         }
-        if height > maxHeight {
-            height = maxHeight
-        }
-        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: height + 300.0), items: items, selectedIndex: index, segments: segments)
+        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: min(height, maxHeight) + 300.0), items: items, selectedIndex: index, segments: segments)
         self.tableView.configuration = self.configuration
         
         self.tableView.selectSegmentIndexPathHandler = { [weak self] (index: Int) -> () in
