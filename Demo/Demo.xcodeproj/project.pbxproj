@@ -20,6 +20,7 @@
 		2E44D6B41B4C326300C9C49E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6B21B4C326300C9C49E /* LaunchScreen.xib */; };
 		DE37511D1F83A98D00AEAA27 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE37511C1F83A98D00AEAA27 /* UILabel+Extension.swift */; };
 		DE5648DD1F7BAB9300D51429 /* BTMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5648DB1F7BAB9300D51429 /* BTMenuCell.swift */; };
+		DE5A224E1F862F820056A7F2 /* BTSegmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5A224D1F862F820056A7F2 /* BTSegmentCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		2E44D6BE1B4C326300C9C49E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE37511C1F83A98D00AEAA27 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		DE5648DB1F7BAB9300D51429 /* BTMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTMenuCell.swift; sourceTree = "<group>"; };
+		DE5A224D1F862F820056A7F2 /* BTSegmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTSegmentCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				0B11A6321F0C12F500CB4A0B /* BTConfiguration.swift */,
 				0B11A6341F0C12F500CB4A0B /* BTTableView.swift */,
 				DE5648DB1F7BAB9300D51429 /* BTMenuCell.swift */,
+				DE5A224D1F862F820056A7F2 /* BTSegmentCell.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B11A63A1F0C12F500CB4A0B /* BTConfiguration.swift in Sources */,
+				DE5A224E1F862F820056A7F2 /* BTSegmentCell.swift in Sources */,
 				2E44D6AC1B4C326300C9C49E /* ViewController.swift in Sources */,
 				0B11A6371F0C12F500CB4A0B /* BTNavigationDropdownMenu.swift in Sources */,
 				0B11A6391F0C12F500CB4A0B /* UIViewController+Extension.swift in Sources */,

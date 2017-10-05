@@ -28,21 +28,25 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     // Public properties
     var configuration: BTConfiguration!
     var selectRowAtIndexPathHandler: ((_ indexPath: Int) -> ())?
-    
+    var selectSegmentIndexPathHandler: ((_ index: Int) -> ())?
+
     // Private properties
     var items: [BTMenuItem] = []
     var selectedIndexPath: Int?
-    
+    var segments: [String]?
+    var selectedSegment: Int
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, items: [BTMenuItem], selectedIndex: Int, configuration: BTConfiguration) {
+    init(frame: CGRect, items: [BTMenuItem], selectedIndex: Int, configuration: BTConfiguration, segments: [String]? = nil, selectedSegment: Int = 0) {
+        self.selectedSegment = selectedSegment
         super.init(frame: frame, style: UITableViewStyle.plain)
-        
         self.items = items
         self.selectedIndexPath = selectedIndex
         self.configuration = configuration
+        self.segments = segments
         
         // Setup table view
         self.delegate = self
@@ -63,6 +67,9 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
+            if let segments = self.segments, segments.count > 0 {
+                return 1
+            }
             return 0
         }
         return self.items.count
@@ -73,6 +80,17 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = BTSegmentCell(style: UITableViewCellStyle.default, reuseIdentifier: "SegmentCell", segments: segments ?? [], selectedSegment: self.selectedSegment)
+            cell.configuration = self.configuration
+            cell.selectSegmentIndexPathHandler = { index in
+                self.selectedSegment = index
+                if let handler = self.selectSegmentIndexPathHandler {
+                    handler(self.selectedSegment)
+                }
+            }
+            return cell
+        }
         let cell = BTMenuCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.configuration = self.configuration
         cell.textLabel?.text = self.items[indexPath.row].title
@@ -100,10 +118,11 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     // Table view delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndexPath = indexPath.row
-        self.selectRowAtIndexPathHandler!(indexPath.row)
-        self.reloadData()
-
+        if indexPath.section == 1 {
+            selectedIndexPath = indexPath.row
+            self.selectRowAtIndexPathHandler!(indexPath.row)
+            self.reloadData()
+        }
     }
 
 }

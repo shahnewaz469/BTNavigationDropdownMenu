@@ -234,6 +234,7 @@ open class BTNavigationDropdownMenu: UIView {
 
     open var didSelectItemAtIndexHandler: ((_ indexPath: Int) -> ())?
     open var isShown: Bool!
+    open var selectSegmentIndexPathHandler: ((_ index: Int) -> ())?
 
     fileprivate weak var navigationController: UINavigationController?
     fileprivate var configuration = BTConfiguration()
@@ -262,7 +263,7 @@ open class BTNavigationDropdownMenu: UIView {
         - title: An enum to define title to be displayed, can be a string or index of items.
         - items: The array of items to select
      */
-    public init(navigationController: UINavigationController? = nil, containerView: UIView = UIApplication.shared.keyWindow!, index: Int, items: [BTMenuItem]) {
+    public init(navigationController: UINavigationController? = nil, containerView: UIView = UIApplication.shared.keyWindow!, index: Int, items: [BTMenuItem], segments: [String]? = nil) {
         // Key window
         guard let window = UIApplication.shared.keyWindow else {
             super.init(frame: CGRect.zero)
@@ -335,7 +336,17 @@ open class BTNavigationDropdownMenu: UIView {
         self.setupDefaultConfiguration()
 
         // Init table view
-        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: (CGFloat(items.count) * self.configuration.cellHeight) + 300.0), items: items, selectedIndex: index, configuration: self.configuration)
+        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: (CGFloat(items.count) * self.configuration.cellHeight) + 300.0), items: items, selectedIndex: index, configuration: self.configuration, segments: segments)
+        self.tableView.selectSegmentIndexPathHandler = { [weak self] (index: Int) -> () in
+            guard let selfie = self else {
+                return
+            }
+            if let selectSegmentIndexPathHandler = selfie.selectSegmentIndexPathHandler {
+                selectSegmentIndexPathHandler(index)
+            }
+            self?.hideMenu()
+            self?.layoutSubviews()
+        }
         self.tableView.selectRowAtIndexPathHandler = { [weak self] (indexPath: Int) -> () in
             guard let selfie = self else {
                 return

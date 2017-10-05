@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.0/255.0, green:180/255.0, blue:220/255.0, alpha: 1.0)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 
-        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, index: 2, items: menus)
+        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, index: 2, items: menus, segments: ["List", "Map", "Graph"])
 
         /*
         menuView.cellHeight = 50
