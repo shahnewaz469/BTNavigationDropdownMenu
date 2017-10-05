@@ -71,16 +71,6 @@ open class BTNavigationDropdownMenu: UIView {
         }
     }
 
-    // The height of the cell. Default is 50
-    open var cellHeight: NSNumber! {
-        get {
-            return self.configuration.cellHeight as NSNumber!
-        }
-        set(value) {
-            self.configuration.cellHeight = CGFloat(value)
-        }
-    }
-
     // The color of the cell background. Default is whiteColor()
     open var cellBackgroundColor: UIColor! {
         get {
@@ -349,20 +339,27 @@ open class BTNavigationDropdownMenu: UIView {
         self.backgroundView.backgroundColor = self.configuration.maskBackgroundColor
         self.backgroundView.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
 
+        let backgroundTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(BTNavigationDropdownMenu.hideMenu));
+        self.backgroundView.addGestureRecognizer(backgroundTapRecognizer)
+
         // Init properties
         self.setupDefaultConfiguration()
 
         // Init table view
-        var height = menuWrapperBounds.height - self.navigationController!.navigationBar.frame.height - UIApplication.shared.statusBarFrame.height + 300.0
+        var maxHeight = menuWrapperBounds.height - self.navigationController!.navigationBar.frame.height - UIApplication.shared.statusBarFrame.height
         if let tabbar = self.navigationController?.tabBarController?.tabBar {
-            height -= tabbar.frame.size.height
+            maxHeight -= tabbar.frame.size.height
         }
-        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: height), items: items, selectedIndex: index, segments: segments)
+        var height = CGFloat(items.count) * CGFloat(self.configuration.cellHeight)
+        if segments != nil {
+            height = CGFloat(items.count + 1) * CGFloat(self.configuration.cellHeight)
+        }
+        if height > maxHeight {
+            height = maxHeight
+        }
+        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: height + 300.0), items: items, selectedIndex: index, segments: segments)
         self.tableView.configuration = self.configuration
         
-        let backgroundTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(BTNavigationDropdownMenu.hideMenu));
-        self.tableView.addGestureRecognizer(backgroundTapRecognizer)
-
         self.tableView.selectSegmentIndexPathHandler = { [weak self] (index: Int) -> () in
             guard let selfie = self else {
                 return

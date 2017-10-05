@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let items = ["Most Popular", "Latest", "Trending", "Nearest", "Top Picks", "Nearest", "Top Picks"]
+        let items = ["Most Popular", "Latest", "Trending", "Nearest", "Top Picks", "Nearest", "Top Picks", "Most Popular", "Latest", "Trending", "Nearest", "Top Picks", "Nearest", "Top Picks"]
 
         var menus = [BTMenuItem]()
         for title in items {
@@ -43,8 +43,7 @@ class ViewController: UIViewController {
         menuView.maskBackgroundColor = UIColor.black
         menuView.maskBackgroundOpacity = 0.3
         */
-//        menuView.cellHeight = 80
-        menuView.isScrollEnabled = false
+        menuView.isScrollEnabled = true
         menuView.shouldShowSeperator = false
         menuView.cellSeparatorColor = UIColor.clear
         menuView.selectedCellTextLabelColor = UIColor.white
