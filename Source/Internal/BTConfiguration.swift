@@ -78,7 +78,7 @@ final class BTConfiguration {
         self.maskBackgroundColor = UIColor.black
         self.maskBackgroundOpacity = 0.3
         self.shouldChangeTitleText = true
-        self.isScrollEnabled = false
-        self.shouldShowSeperator = false
+        self.isScrollEnabled = true
+        self.shouldShowSeperator = true
     }
 }

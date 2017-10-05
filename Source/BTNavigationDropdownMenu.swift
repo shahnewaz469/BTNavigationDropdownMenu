@@ -57,6 +57,7 @@ open class BTNavigationDropdownMenu: UIView {
         }
         set(value) {
             self.configuration.shouldShowSeperator = value
+            self.tableView.configuration = self.configuration
         }
     }
 
@@ -66,6 +67,7 @@ open class BTNavigationDropdownMenu: UIView {
         }
         set(value) {
             self.configuration.isScrollEnabled = value
+            self.tableView.configuration = self.configuration
         }
     }
 
@@ -347,20 +349,20 @@ open class BTNavigationDropdownMenu: UIView {
         self.backgroundView.backgroundColor = self.configuration.maskBackgroundColor
         self.backgroundView.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
 
-        let backgroundTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(BTNavigationDropdownMenu.hideMenu));
-        self.backgroundView.addGestureRecognizer(backgroundTapRecognizer)
-
         // Init properties
         self.setupDefaultConfiguration()
 
         // Init table view
-        var rowCount = CGFloat(items.count)
-        if segments != nil {
-            rowCount = CGFloat(items.count + 1)
+        var height = menuWrapperBounds.height - self.navigationController!.navigationBar.frame.height - UIApplication.shared.statusBarFrame.height + 300.0
+        if let tabbar = self.navigationController?.tabBarController?.tabBar {
+            height -= tabbar.frame.size.height
         }
-        
-        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: (rowCount * self.configuration.cellHeight) + 300.0), items: items, selectedIndex: index, segments: segments)
+        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: height), items: items, selectedIndex: index, segments: segments)
         self.tableView.configuration = self.configuration
+        
+        let backgroundTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(BTNavigationDropdownMenu.hideMenu));
+        self.tableView.addGestureRecognizer(backgroundTapRecognizer)
+
         self.tableView.selectSegmentIndexPathHandler = { [weak self] (index: Int) -> () in
             guard let selfie = self else {
                 return
@@ -456,7 +458,7 @@ open class BTNavigationDropdownMenu: UIView {
     func setupDefaultConfiguration() {
         self.menuTitleColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
         self.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
-//        self.cellSeparatorColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
+        self.cellSeparatorColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
         self.cellTextLabelColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
 
         self.arrowTintColor = self.configuration.arrowTintColor
